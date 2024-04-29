@@ -7,7 +7,12 @@ public class Plumber : MonoBehaviour
     [SerializeField] GameObject pipeBase;
     [SerializeField] GameObject pipeTop;
     [SerializeField] float _launchForce;
-
+    private float _launchMultiplier;
+    public float LaunchMultiplier
+    {
+        get { return _launchMultiplier; }
+        set { _launchMultiplier = value; }
+    }
     bool _fired = false;
 
     Rigidbody2D _rigidbody2D;
@@ -46,7 +51,7 @@ public class Plumber : MonoBehaviour
         direction.Normalize();
 
         _rigidbody2D.isKinematic = false;
-        _rigidbody2D.AddForce(direction * _launchForce);
+        _rigidbody2D.AddForce((direction * _launchForce) * LaunchMultiplier);
         _fired = true;
     }
     void OnCollisionEnter2D(Collision2D collision)
